@@ -108,7 +108,7 @@ end
 - [ ] Consider DDOS protections e.g. via CloudFlare
 - [ ] Provide ways for security researchers to work with you and report vulnerabilities responsibly
 - [ ] Have rake task or similar ready to go for mass-password reset that will notify users of issue.
-- [ ] More covered at http://guides.rubyonrails.org/security.html#regular-expressions
+- [ ] More covered at http://guides.rubyonrails.org/security.html
 - [ ] See https://www.owasp.org/index.php/Ruby_on_Rails_Cheatsheet
 - [ ] See http://cto-security-checklist.sqreen.io/
 - [ ] Add reminders in developer calendars to do the regular tasks here and check if this checklist has changed recently.
