@@ -76,7 +76,7 @@ end
 - [ ] Any routes that redirect to a URL provided in a query string or POST param should operate a safelist of acceptable redirect URLs and/or limit to only redirecting to paths within the app's URL. Do not redirect to any given URL.
 - [ ] Minimize the data you store on users (especially PII) and regularly review if you can store less or delete older data. E.g. Does the app need to store a user's birthday in perpetuity (or at all) or only need it at registration to check they're old enough? Once data is no longer needed favor deleting it.
 - [ ] Favor storing data encrypted (https://github.com/rocketjob/symmetric-encryption)
-- [ ] Do not store API keys and other tokens in plain text. Protect via hashing and/or encryption.
+- [ ] Do not store API keys, tokens, secret questions/answers and other secrets in plain text. Protect via hashing and/or encryption.
 - [ ] Consider encrypting stored password (and other secrets) hashes (https://blogs.dropbox.com/tech/2016/09/how-dropbox-securely-stores-your-passwords/)
 - [ ] Favor multi-factor authentication
 - [ ] Favor Yubikey or similar
