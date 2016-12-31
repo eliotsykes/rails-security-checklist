@@ -197,7 +197,7 @@ end
 
 ## Reminders
 
-- Security concerns trump developer convenience. If having a secure-by-default `ApplicationController` feels like a pain in the neck when writing a public-facing controller that requires no authentication and no authorization checks, you're doing something right.
+- Security concerns trump developer convenience. If having a secure-defaults `ApplicationController` feels like a pain in the neck when writing a public-facing controller that requires no authentication and no authorization checks, you're doing something right.
 - By default your log files and 3rd party logging services are probably receiving a lot of sensitive information they should not be. Assume log files and 3rd party logging services will expose your data sooner or later.
 - Security is a moving target and is never done.
 - The DRY principle is sometimes better ignored in security-related code when it prevents defence-in-depth, e.g. having authentication checks in `routes.rb` and controller callbacks is a form of duplication but provides better defence.
