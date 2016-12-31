@@ -74,6 +74,7 @@ end
 - [ ] Filter and validate all user input
 - [ ] Regularly grep codebase for `html_safe`, `raw`, etc. usage and review
 - [ ] Any routes that redirect to a URL provided in a query string or POST param should operate a safelist of acceptable redirect URLs and/or limit to only redirecting to paths within the app's URL. Do not redirect to any given URL.
+- [ ] Consider adding a defensive layer to strong parameters to reject values that do not meet type requirements (https://github.com/zendesk/stronger_parameters)
 - [ ] Minimize the data you store on users (especially PII) and regularly review if you can store less or delete older data. E.g. Does the app need to store a user's birthday in perpetuity (or at all) or only need it at registration to check they're old enough? Once data is no longer needed favor deleting it.
 - [ ] Favor storing data encrypted (https://github.com/rocketjob/symmetric-encryption)
 - [ ] Do not store API keys, tokens, secret questions/answers and other secrets in plain text. Protect via hashing and/or encryption.
