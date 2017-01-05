@@ -91,7 +91,7 @@ end
 
 ### Databases
 - [ ] Beware any hand-written SQL snippets in the app and review for SQL injection vulnerabilities. Ensure SQL is appropriately sanitized using the ActiveRecord provided methods (e.g. see `sanitize_sql_array`).
-- [ ] Web application firewall that can detect, prevent, and alert on known SQL injection attempts
+- [ ] [Web application firewall](https://www.owasp.org/index.php/Web_Application_Firewall) that can detect, prevent, and alert on known SQL injection attempts.
 - [ ] Keep Web application firewall rules up-to-date
 - [ ] Minimize database privileges/access on user-serving database connections. Consider user accounts, database system OS user account, isolating data by views: https://www.owasp.org/index.php/SQL_Injection_Prevention_Cheat_Sheet#Additional_Defenses
 - [ ] Minimize the data you store on users (especially PII) and regularly review if you can store less or delete older data. E.g. Does the app need to store a user's birthday in perpetuity (or at all) or only need it at registration to check they're old enough? Once data is no longer needed favor deleting it.
