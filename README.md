@@ -61,7 +61,9 @@ end
 ### Detecting Abuse
 - [ ] Notify users via email when their passwords change | HOWTOs: [Devise](https://github.com/plataformatec/devise/wiki/Notify-users-via-email-when-their-passwords-change)
 - [ ] Favor sending notifications to user for significant account-related events (e.g. password change, credit card change, customer/technical support phone call made, new payment charge, new email or other contact information added, wrong password entered, 2FA disabled/enabled, other settings changes, login from a never-before used region and/or IP address)
+- [ ] Do not send the new password via unencrypted email.
 - [ ] Consider keeping an audit trail of all significant account-related events (e.g. logins, password changes, etc.) that the user can review (and consider sending this as a monthly summary to them)
+- [ ] Use this audit trail or counters to rate-limit dangerous actions. For instance, prevent brute force password attacks by only allowing some maximum number of logins per second. You can also rate-limit the creation of particular database objects, globally or per-user, to prevent other kinds of DDOS or overflow attacks.
 
 
 ### Logins, Registrations
