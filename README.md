@@ -75,18 +75,38 @@ end
 - [ ] Lock account after X failed password attempts (see Devise's lockable module)
 - [ ] Timeout logins (see Devise's timeoutable module)
 - [ ] Favor mitigating user enumeration (see paranoid mode in Devise and https://www.owasp.org/index.php/Testing_for_user_enumeration_(OWASP-AT-002))
-- [ ] Favor padding/increasing the time it takes to initially login and to report failed password attempts so as to mitigate timing attacks you may be unaware of and to mitigate brute force and user enumeration attempts. See how PayPal shows the "loading..." screen for a good few seconds when you first login (should this always be a fixed set amount of time e.g. 5 seconds and error asking user to try again if it takes longer?)(please correct me on this or add detail as this is an assumption I'm making about the reasons why PayPal do this).
 
 
 ### Passwords
 - [ ] Favor stronger password hashing with higher workload (e.g. favor more stretches). At time of implementation, research what the currently recommended password hashing algorithms are.
 - [ ] Add calendar reminder to regularly review your current password storage practices and whether to migrate to a different mechanism and/or increase the workload as CPU performance increases over time.
-- [ ] Check for timing attacks on password checking and token checking code
 - [ ] Prevent password reuse
 - [ ] Enforce strong, long passwords
 - [ ] Prevent commonly-used passwords (see Discourse codebase for an example)
 - [ ] Proactively notify/prevent/reset users reusing passwords they've had compromised on other services (https://krebsonsecurity.com/2016/06/password-re-user-get-to-get-busy/ - interestingly Netflix apparently uses Scumblr, an open-sourced Rails app, to help with this: http://techblog.netflix.com/2014/08/announcing-scumblr-and-sketchy-search.html)
 - [ ] Consider adding a layer of encryption to the stored password hashes (and other hashed secrets) (https://blogs.dropbox.com/tech/2016/09/how-dropbox-securely-stores-your-passwords/)
+
+
+### Timing Attacks
+- [ ] Favor padding/increasing the time it takes to initially login and to report failed password attempts so as to mitigate timing attacks you may be unaware of and to mitigate brute force and user enumeration attempts. See how PayPal shows the "loading..." screen for a good few seconds when you first login (should this always be a fixed set amount of time e.g. 5 seconds and error asking user to try again if it takes longer?)(please correct me on this or add detail as this is an assumption I'm making about the reasons why PayPal do this).
+- [ ] Mitigate timing attacks and length leaks on password and other secret checking code https://thisdata.com/blog/timing-attacks-against-string-comparison/
+- [ ] Avoid using secret tokens for account lookup (includes API token, password reset token, etc.). Do not query the database using the token, this is vulnerable to timing attacks that can reveal the secret to an attacker. Use an alternative identifier that is not the token for the query (e.g. username, email, `api_locator`).
+```rb
+# bad - timing attack can reveal actual token
+user = User.find_by(token: submitted_token)
+authenticated = !user.nil?
+
+# ok
+# step 1: find user by an identifier that is *not* the API key, e.g. username, email, api_locator
+user = User.find_by(username: submitted_username)
+# step 2: compare tokens taking care to mitigate timing attacks and length leaks.
+# (NB. favor *not* storing the token in plain text)
+authenticated = ActiveSupport::SecurityUtils.secure_compare(
+  # using digests mitigates length leaks
+  ::Digest::SHA256.hexdigest(user.token),
+  ::Digest::SHA256.hexdigest(submitted_token)
+)
+```
 
 
 ### Databases
