@@ -23,6 +23,14 @@ One aim for this document is to turn it into a community resource much like the 
 - [ ] Check any developer/test-related engines/Rack apps do not expose any URL endpoints in production. They should not even leak (e.g. via 500 HTTP response code) information that they are installed. Ideally don't have their gems installed in production.
 
 
+### URL Secret Tokens
+- [ ] Mitigate `Referer` header leaking URL secret tokens to 3rd parties (e.g. password reset URLs can be leaked to CDNs, JS hosted by third parties, other sites you link to). (https://robots.thoughtbot.com/is-your-site-leaking-password-reset-links)
+
+
+### Random Token Generation
+- [ ] **CONTRIBUTOR NEEDED** Use `SecureRandom` or should we favor https://github.com/cryptosphere/sysrandom ?
+
+
 ### Logging
 - [ ] Avoid Rails insecure default where it operates a blocklist and logs most request parameters. A safelist would be preferable. Set up the `filter_parameters` config to log no request parameters:
 ```rb
