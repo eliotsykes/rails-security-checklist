@@ -95,6 +95,7 @@ end
 - [ ] Keep Web application firewall rules up-to-date
 - [ ] Minimize database privileges/access on user-serving database connections. Consider user accounts, database system OS user account, isolating data by views: https://www.owasp.org/index.php/SQL_Injection_Prevention_Cheat_Sheet#Additional_Defenses
 - [ ] Minimize the data you store on users (especially PII) and regularly review if you can store less or delete older data. E.g. Does the app need to store a user's birthday in perpetuity (or at all) or only need it at registration to check they're old enough? Once data is no longer needed favor deleting it.
+- [ ] Remove database links between user profiles and their data if possible: http://andre.arko.net/2014/09/20/how-to-safely-store-user-data/
 - [ ] Favor storing data encrypted (https://github.com/rocketjob/symmetric-encryption)
 - [ ] Do not store API keys, tokens, secret questions/answers and other secrets in plain text. Protect via hashing and/or encryption.
 - [ ] Encrypted, frequent database backups that are regularly tested can be restored. Consider keeping offline backups.
