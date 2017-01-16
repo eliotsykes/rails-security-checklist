@@ -23,6 +23,19 @@ One aim for this document is to turn it into a community resource much like the 
 - [ ] Check any developer/test-related engines/Rack apps do not expose any URL endpoints in production. They should not even leak (e.g. via 500 HTTP response code) information that they are installed. Ideally don't have their gems installed in production.
 
 
+### Views
+- [ ] Avoid HTML comments in view templates as these are viewable to clients. Use server-side comments instead:
+```
+# bad - HTML comments will be visible to users who "View Source":
+<!-- This will be sent to clients -->
+<!-- <%= link_to "Admin Site", "https://admin.example.org/login" %> -->
+
+# good - ERB comments are removed by the server, and so not viewable to clients:
+<%# This will _not_ be sent to clients %>
+<%#= link_to "Admin Site", "https://admin.example.org/login" %>
+```
+
+
 ### URL Secret Tokens
 - [ ] Mitigate `Referer` header leaking URL secret tokens to 3rd parties (e.g. password reset URLs can be leaked to CDNs, JS hosted by third parties, other sites you link to). (https://robots.thoughtbot.com/is-your-site-leaking-password-reset-links)
 
