@@ -30,7 +30,7 @@ One aim for this document is to turn it into a community resource much like the 
 <!-- This will be sent to clients -->
 <!-- <%= link_to "Admin Site", "https://admin.example.org/login" %> -->
 
-# good - ERB comments are removed by the server, and so not viewable to clients:
+# ok - ERB comments are removed by the server, and so not viewable to clients:
 <%# This will _not_ be sent to clients %>
 <%#= link_to "Admin Site", "https://admin.example.org/login" %>
 ```
