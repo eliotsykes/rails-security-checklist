@@ -68,7 +68,7 @@ end
 
 
 ### Uploads and File Processing
-- [ ] Avoid allow users to upload files to your (application) servers.
+- [ ] Avoid handling file uploads on your (application) servers.
 - [ ] Favor scanning uploaded files for viruses/malware using a 3rd party service. don't do this on your own servers.
 - [ ] Operate a safelist of allowed file uploads
 - [ ] Avoid running imagemagick and other image processing software on your own infrastructure.
