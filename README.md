@@ -93,7 +93,7 @@ end
 ### Logins, Registrations
 - [ ] Favor multi-factor authentication
 - [ ] Favor Yubikey or similar
-- [ ] Nudge users towards using multi-factor authentication (provide incentives and/or enable-as-default)
+- [ ] Nudge users towards using multi-factor authentication. Enable as default and/or provide incentives. For example MailChimp give a 10% discount for enabling 2FA.
 - [ ] Favor limiting access per IP-address, per device, especially for administrators
 - [ ] Require user confirms account (see Devise's confirmable module)
 - [ ] Lock account after X failed password attempts (see Devise's lockable module)
