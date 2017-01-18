@@ -40,6 +40,11 @@ One aim for this document is to turn it into a community resource much like the 
 - [ ] Mitigate `Referer` header leaking URL secret tokens to 3rd parties (e.g. password reset URLs can be leaked to CDNs, JS hosted by third parties, other sites you link to). (https://robots.thoughtbot.com/is-your-site-leaking-password-reset-links)
 
 
+### IDs
+- [ ] Avoid exposing sequential IDs (`98`, `99`, `100`, ...) which can leak information about your app's usage. For example, sequential IDs are often exposed in URLs, form field HTML source, and APIs. Sequential IDs reveal the size and rate at which certain types of data are created in your app. For example, if a competitor signs up to your service and their account page is at path `/users/12000`, and they sign up again in a month, and their new account path is `/users/13000`, you have leaked that your service gains roughly 1,000 sign-ups per month and has 13,000 accounts total. It is not recommended but some small mitigation can be made by starting IDs at a very large number, however this still leaks the rate of new data creation.
+- [ ] If IDs need to be exposed in URLs, forms, etc., favor less leaky IDs such as UUIDs or [hashids](http://hashids.org/ruby/) instead of sequential IDs.
+
+
 ### Random Token Generation
 - [ ] **CONTRIBUTOR NEEDED** Use `SecureRandom` or should we favor https://github.com/cryptosphere/sysrandom ?
 
