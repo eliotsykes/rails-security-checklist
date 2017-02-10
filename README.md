@@ -212,7 +212,7 @@ authenticated = ActiveSupport::SecurityUtils.secure_compare(
 
 
 ### Headers
-- [ ] Secure Headers (see gem)
+- [ ] Secure Headers (see [gem](https://github.com/twitter/secureheaders))
 - [ ] Content Security Policy
 
 
