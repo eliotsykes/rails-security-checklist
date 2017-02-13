@@ -150,6 +150,11 @@ authenticated = ActiveSupport::SecurityUtils.secure_compare(
 - [ ] Encrypted, frequent database backups that are regularly tested can be restored. Consider keeping offline backups.
 
 
+### Redis
+- [ ] Heroku Redis sounds like its insecure by default, secure it as described here using stunnel: https://devcenter.heroku.com/articles/securing-heroku-redis (*Does this affect most Redis setups? Are there any Redis providers who are more secure by default?*)
+- *Seeking contributors to help with securing Redis, please open a PR and share your experience.*
+
+
 ### Gems
 - [ ] Minimize production dependencies in Gemfile. Move all non-essential production gems into their own groups (usually test and development groups)
 - [ ] Run Bundler Audit regularly (and/or Snyk/Gemnasium services)
