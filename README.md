@@ -25,15 +25,15 @@ One aim for this document is to turn it into a community resource much like the 
 
 ### Views
 - [ ] Avoid HTML comments in view templates as these are viewable to clients. Use server-side comments instead:
-```
-# bad - HTML comments will be visible to users who "View Source":
-<!-- This will be sent to clients -->
-<!-- <%= link_to "Admin Site", "https://admin.example.org/login" %> -->
+  ```
+  # bad - HTML comments will be visible to users who "View Source":
+  <!-- This will be sent to clients -->
+  <!-- <%= link_to "Admin Site", "https://admin.example.org/login" %> -->
 
-# ok - ERB comments are removed by the server, and so not viewable to clients:
-<%# This will _not_ be sent to clients %>
-<%#= link_to "Admin Site", "https://admin.example.org/login" %>
-```
+  # ok - ERB comments are removed by the server, and so not viewable to clients:
+  <%# This will _not_ be sent to clients %>
+  <%#= link_to "Admin Site", "https://admin.example.org/login" %>
+  ```
 
 
 ### URL Secret Tokens
@@ -51,14 +51,14 @@ One aim for this document is to turn it into a community resource much like the 
 
 ### Logging
 - [ ] Avoid Rails insecure default where it operates a blocklist and logs most request parameters. A safelist would be preferable. Set up the `filter_parameters` config to log no request parameters:
-```rb
-# File: config/initializers/filter_parameter_logging.rb
-Rails.application.config.filter_parameters += [:password]
-if Rails.env.production?
-  MATCH_ALL_PARAMS_PATTERN = /.+/
-  Rails.application.config.filter_parameters += [MATCH_ALL_PARAMS_PATTERN]
-end
-```
+  ```rb
+  # File: config/initializers/filter_parameter_logging.rb
+  Rails.application.config.filter_parameters += [:password]
+  if Rails.env.production?
+    MATCH_ALL_PARAMS_PATTERN = /.+/
+    Rails.application.config.filter_parameters += [MATCH_ALL_PARAMS_PATTERN]
+  end
+  ```
 - [ ] Regularly audit what data is captured by log files, 3rd party logging, error catching and monitoring services. You (and your users!) may be surprised at what sensitive information you find. Data stored in log files and 3rd party services can be exploited.
 - [ ] Favor minimal logging.
 - [ ] Consider not archiving logs or regularly purging archived logs stored by you and 3rd parties.
@@ -71,6 +71,17 @@ end
 - [ ] Consider adding a defensive layer to strong parameters to reject values that do not meet type requirements (https://github.com/zendesk/stronger_parameters)
 - [ ] Consider sanitizing all ActiveRecord attributes (favoring the secure default of an opt-out sanitizer such as `Loofah::XssFoliate` https://github.com/flavorjones/loofah-activerecord)
 
+### Markdown Rendering
+- [ ] Favor markdown rendering that operates using a safelist of permitted features and forbids rendering arbitrary HTML, especially if you accept markdown input from users.
+- [ ] If using RedCarpet, favor `Redcarpet::Render::Safe` over other renderers such as `RedCarpet::Render::HTML`
+
+  ```rb
+  # bad
+  renderer = Redcarpet::Render::HTML.new
+
+  # less risky
+  renderer = Redcarpet::Render::Safe.new
+  ```
 
 ### Uploads and File Processing
 - [ ] Avoid handling file uploads on your (application) servers.
@@ -121,22 +132,22 @@ end
 - [ ] Favor padding/increasing the time it takes to initially login and to report failed password attempts so as to mitigate timing attacks you may be unaware of and to mitigate brute force and user enumeration attempts. See how PayPal shows the "loading..." screen for a good few seconds when you first login (should this always be a fixed set amount of time e.g. 5 seconds and error asking user to try again if it takes longer?)(please correct me on this or add detail as this is an assumption I'm making about the reasons why PayPal do this).
 - [ ] Mitigate timing attacks and length leaks on password and other secret checking code https://thisdata.com/blog/timing-attacks-against-string-comparison/
 - [ ] Avoid using secret tokens for account lookup (includes API token, password reset token, etc.). Do not query the database using the token, this is vulnerable to timing attacks that can reveal the secret to an attacker. Use an alternative identifier that is not the token for the query (e.g. username, email, `api_locator`).
-```rb
-# bad - timing attack can reveal actual token
-user = User.find_by(token: submitted_token)
-authenticated = !user.nil?
+  ```rb
+  # bad - timing attack can reveal actual token
+  user = User.find_by(token: submitted_token)
+  authenticated = !user.nil?
 
-# ok
-# step 1: find user by an identifier that is *not* the API key, e.g. username, email, api_locator
-user = User.find_by(username: submitted_username)
-# step 2: compare tokens taking care to mitigate timing attacks and length leaks.
-# (NB. favor *not* storing the token in plain text)
-authenticated = ActiveSupport::SecurityUtils.secure_compare(
-  # using digests mitigates length leaks
-  ::Digest::SHA256.hexdigest(user.token),
-  ::Digest::SHA256.hexdigest(submitted_token)
-)
-```
+  # less risky
+  # step 1: find user by an identifier that is *not* the API key, e.g. username, email, api_locator
+  user = User.find_by(username: submitted_username)
+  # step 2: compare tokens taking care to mitigate timing attacks and length leaks.
+  # (NB. favor *not* storing the token in plain text)
+  authenticated = ActiveSupport::SecurityUtils.secure_compare(
+    # using digests mitigates length leaks
+    ::Digest::SHA256.hexdigest(user.token),
+    ::Digest::SHA256.hexdigest(submitted_token)
+  )
+  ```
 
 
 ### Databases
