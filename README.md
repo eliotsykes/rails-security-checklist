@@ -238,7 +238,7 @@ One aim for this document is to turn it into a community resource much like the 
 
 
 ### TLS/SSL
-- [ ] Force TLS/SSL on all URLs, including assets, images. No mixed protocols.
+- [ ] Force TLS/SSL on all URLs, including links, assets, images for internal and 3rd party URLs. No mixed protocols.
 - [ ] Use SSL labs to check grade
 - [ ] HSTS
 
