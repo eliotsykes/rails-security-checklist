@@ -25,6 +25,7 @@ One aim for this document is to turn it into a community resource much like the 
 
 ### Views
 - [ ] Avoid HTML comments in view templates as these are viewable to clients. Use server-side comments instead:
+
   ```
   # bad - HTML comments will be visible to users who "View Source":
   <!-- This will be sent to clients -->
@@ -59,6 +60,7 @@ One aim for this document is to turn it into a community resource much like the 
 
 ### Logging
 - [ ] Avoid Rails insecure default where it operates a blocklist and logs most request parameters. A safelist would be preferable. Set up the `filter_parameters` config to log no request parameters:
+
   ```rb
   # File: config/initializers/filter_parameter_logging.rb
   Rails.application.config.filter_parameters += [:password]
@@ -140,6 +142,7 @@ One aim for this document is to turn it into a community resource much like the 
 - [ ] Favor padding/increasing the time it takes to initially login and to report failed password attempts so as to mitigate timing attacks you may be unaware of and to mitigate brute force and user enumeration attempts. See how PayPal shows the "loading..." screen for a good few seconds when you first login (should this always be a fixed set amount of time e.g. 5 seconds and error asking user to try again if it takes longer?)(please correct me on this or add detail as this is an assumption I'm making about the reasons why PayPal do this).
 - [ ] Mitigate timing attacks and length leaks on password and other secret checking code https://thisdata.com/blog/timing-attacks-against-string-comparison/
 - [ ] Avoid using secret tokens for account lookup (includes API token, password reset token, etc.). Do not query the database using the token, this is vulnerable to timing attacks that can reveal the secret to an attacker. Use an alternative identifier that is not the token for the query (e.g. username, email, `api_locator`).
+
   ```rb
   # bad - timing attack can reveal actual token
   user = User.find_by(token: submitted_token)
