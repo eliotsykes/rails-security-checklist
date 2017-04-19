@@ -125,7 +125,10 @@ One aim for this document is to turn it into a community resource much like the 
 - [ ] Require user confirms account (see Devise's confirmable module)
 - [ ] Lock account after X failed password attempts (see Devise's lockable module)
 - [ ] Timeout logins (see Devise's timeoutable module)
-- [ ] Favor mitigating user enumeration (see paranoid mode in Devise and https://www.owasp.org/index.php/Testing_for_user_enumeration_(OWASP-AT-002))
+- [ ] Favor mitigating user enumeration [(source)](https://www.owasp.org/index.php/Testing_for_user_enumeration_(OWASP-AT-002))
+  - Clearance mitigates user enumeration by default (except on registration) [(source)](https://github.com/eliotsykes/rails-security-checklist/issues/21#issuecomment-294912368)
+  - Devise needs to be configured to mitigate user enumeration by configuring `paranoid` mode (except on registration) [(source)](https://github.com/eliotsykes/rails-security-checklist/issues/21#issue-222185446)
+  - Both Clearance & Devise do not mitigate user enumeration for registration, as apps often want to report if an email address is already registered.
 
 
 ### Passwords
