@@ -18,7 +18,7 @@ One aim for this document is to turn it into a community resource much like the 
 
 
 ### Routes
-- [ ] Perform authentication and authorization checks in `routes.rb`. It is intentional this duplicates many of the security checks you already perform in the controller callbacks (Devise's `authenticate` and `authenticated`) (motivations: defense-in-depth, swiss cheese model).
+- [ ] Perform authentication and authorization checks in `routes.rb`. It is intentional this duplicates many of the security checks you already perform in the controller callbacks (Devise's `authenticate` and `authenticated`) (motivations: defence-in-depth, swiss cheese model).
 - [ ] Check all URL endpoints of engines and other Rack apps mounted in `routes.rb` are protected with correct authentication and authorization checks. For sensitive engines/Rack apps favor not leaking they are installed at all by responding with 404 to non-logged in admin users.
 - [ ] Check any developer/test-related engines/Rack apps do not expose any URL endpoints in production. They should not even leak (e.g. via 500 HTTP response code) information that they are installed. Ideally don't have their gems installed in production.
 
@@ -43,7 +43,7 @@ One aim for this document is to turn it into a community resource much like the 
 
 ### IDs
 - [ ] Avoid exposing sequential IDs (`98`, `99`, `100`, ...) which can leak information about your app's usage and assist [forced browsing attacks](https://www.owasp.org/index.php/Forced_browsing). For example, sequential IDs are often exposed in URLs, form field HTML source, and APIs. Sequential IDs reveal the size and rate at which certain types of data are created in your app. For example, if a competitor signs up to your service and their account page is at path `/users/12000`, and they sign up again in a month, and their new account path is `/users/13000`, you have leaked that your service gains roughly 1,000 sign-ups per month and has 13,000 accounts total. It is not recommended but some small mitigation can be made by starting IDs at a very large number, however this still leaks the rate of new data creation.
-- [ ] If IDs need to be exposed in URLs, forms, etc., favor less predictable IDs such as UUIDs or [hashids](http://hashids.org/ruby/) instead of sequential IDs. For files consider using a technique like [Paperclip's URI Obfuscation](https://github.com/thoughtbot/paperclip#uri-obfuscation) to produce unpredictable file paths (URI Obfuscation will need to be used alongside other protections).
+- [ ] If IDs need to be exposed in URLs, forms, etc., favor less predictable IDs such as UUIDs or [hashids](https://github.com/peterhellberg/hashids.rb) instead of sequential IDs. For files consider using a technique like [Paperclip's URI Obfuscation](https://github.com/thoughtbot/paperclip#uri-obfuscation) to produce unpredictable file paths (URI Obfuscation will need to be used alongside other protections).
 - [ ] Configure Rails model generators to use UUID primary keys by default:
 
   ```rb
