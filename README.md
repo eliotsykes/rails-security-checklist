@@ -183,7 +183,7 @@ One aim for this document is to turn it into a community resource much like the 
 
 ### Gems
 - [ ] Minimize production dependencies in Gemfile. Move all non-essential production gems into their own groups (usually test and development groups)
-- [ ] Run Bundler Audit regularly (and/or Snyk/Gemnasium services)
+- [ ] Run Bundler Audit regularly (and/or Snyk/Dependabot services)
 - [ ] Update Bundler Audit vulnerability database regularly
 - [ ] Review `bundle outdated` results regularly and act as needed
 
