@@ -272,7 +272,7 @@ One aim for this document is to turn it into a community resource much like the 
 
 
 ### Further Reading
-- [ ] Review and act on OWASPs literature on Ruby on Rails https://www.owasp.org/index.php/Ruby_on_Rails_Cheatsheet
+- [ ] Review and act on OWASPs literature on Ruby on Rails https://cheatsheetseries.owasp.org/cheatsheets/Ruby_on_Rails_Cheat_Sheet.html
 - [ ] More covered at http://guides.rubyonrails.org/security.html
 - [ ] See http://cto-security-checklist.sqreen.io/
 - [ ] _etc._
